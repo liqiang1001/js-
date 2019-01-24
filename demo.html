@@ -13,7 +13,7 @@
 </body>
 <script>
     //    1. Array.includes 与条件判断
-    function test() {
+    function test(fruit) {
         const redFruits = ["apple", "strawberry", "cherry", "cranberries"];
         if (redFruits.includes(fruit)) {
             console.log("存在");
@@ -72,20 +72,42 @@
         }
     ];
 
-     result = foo
+    result = foo
         .filter(person => person.age > 16)
         .map(person => ({
             person: person,
             friends: []
         }));
-        
+
     // 数组相加
     var numbers = [15.5, 2.3, 1.1, 4.7];
     // reduce() 方法接收一个函数作为累加器， 数组中的每个值（ 从左到右） 开始缩减， 最终计算为一个值。
     // reduce() 可以作为一个高阶函数， 用于函数的 compose。
     // 注意: reduce() 对于空数组是不会执行回调函数的。
-    let all=numbers.reduce((a, b) => a + b)
-    console.log( all)
+    let all = numbers.reduce((a, b) => a + b)
+    console.log(all)
+
+
+    //低效率的写法：
+    // 全局变量 
+    var globalVar = 1;
+
+    function myCallback(info) {
+        for (var i = 100000; i--;) {
+            //每次访问 globalVar 都需要查找到作用域链最顶端，本例中需要访问 100000 次 
+            globalVar += i;
+        }
+    }
+    //更高效的写法：
+    function myCallback(info) {
+        //局部变量缓存全局变量 
+        var localVar = globalVar;
+        for (var i = 100000; i--;) {
+            //访问局部变量是最快的 
+            localVar += i;
+        }
+    }
+    // 要减少作用域链查找还应该减少闭包的使用。
 </script>
 
 </html>
